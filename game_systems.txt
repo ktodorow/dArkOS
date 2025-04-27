@@ -1,0 +1,12 @@
+# Game system folders to be created are listed below
+arcade
+cps1
+cps2
+cps3
+gb
+gba
+gbc
+launchimages
+neogeo
+nes
+tools

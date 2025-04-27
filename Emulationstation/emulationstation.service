@@ -1,0 +1,13 @@
+[Unit]
+Description=EmulationStation-fcamod
+After=firstboot.service
+
+[Service]
+Type=simple
+User=ark
+WorkingDirectory=/home/ark
+ExecStart=/usr/bin/emulationstation/emulationstation.sh
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

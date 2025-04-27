@@ -1,0 +1,81 @@
+#!/bin/bash
+
+echo -e "Boostraping Debian....\n\n"
+# Ensure qemu-aarch64-static is installed
+if ! [ -f /usr/bin/qemu-aarch64-static ]; then
+  sudo apt -y update
+  sudo apt -y install qemu-user-static
+fi
+
+# Bootstrap base system
+sudo debootstrap --no-check-gpg --arch=arm64 --foreign bookworm Arkbuild http://deb.debian.org/debian/
+sudo cp /usr/bin/qemu-aarch64-static Arkbuild/usr/bin/
+sudo chroot Arkbuild/ /debootstrap/debootstrap --second-stage
+
+# Bind essential host filesystems into chroot for networking
+sudo mount --bind /dev Arkbuild/dev
+sudo mount --bind /dev/pts Arkbuild/dev/pts
+sudo mount --bind /proc Arkbuild/proc
+sudo mount --bind /sys Arkbuild/sys
+echo -e "nameserver 8.8.8.8\nnameserver 1.1.1.1" | sudo tee Arkbuild/etc/resolv.conf > /dev/null
+
+# Avoid service autostarts
+echo "exit 101" | sudo tee Arkbuild/usr/sbin/policy-rc.d
+sudo chmod 0755 Arkbuild/usr/sbin/policy-rc.d
+sudo chroot Arkbuild/ mount -t proc proc /proc
+
+# Enable armhf architecture and update
+sudo chroot Arkbuild/ dpkg --add-architecture armhf
+sudo chroot Arkbuild/ apt-get -y update
+sudo chroot Arkbuild/ apt-get -y install libc6:armhf
+
+# Install base runtime packages
+sudo chroot Arkbuild/ apt-get install -y initramfs-tools sudo evtest network-manager systemd-sysv locales locales-all ssh dosfstools
+sudo chroot Arkbuild/ apt-get install -y python3 python3-pip
+sudo chroot Arkbuild/ bash -c "export LC_All=C.UTF-8 && update-locale"
+sudo chroot Arkbuild/ systemctl enable NetworkManager
+
+# Install libmali, DRM, and GBM libraries for rk3326
+sudo chroot Arkbuild/ apt-get install -y libdrm-dev libgbm1
+# Place libmali manually (assumes you have libmali.so or mali drivers ready)
+sudo mkdir -p Arkbuild/usr/lib/aarch64-linux-gnu/
+wget -t 3 -T 60 --no-check-certificate https://github.com/christianhaitian/rk3326_core_builds/raw/refs/heads/rk3326/mali/aarch64/libmali-bifrost-g31-rxp0-gbm.so
+sudo mv libmali-bifrost-g31-rxp0-gbm.so Arkbuild/usr/lib/aarch64-linux-gnu/.
+whichmali="libmali-bifrost-g31-rxp0-gbm.so"
+cd Arkbuild/usr/lib/aarch64-linux-gnu
+sudo ln -sf ${whichmali} libMali.so
+for LIB in libEGL.so libEGL.so.1 libGLES_CM.so libGLES_CM.so.1 libGLESv1_CM.so libGLESv1_CM.so.1 libGLESv1_CM.so.1.1.0 libGLESv2.so libGLESv2.so.2 libGLESv2.so.2.0.0 libGLESv2.so.2.1.0 libGLESv3.so libGLESv3.so.3 libgbm.so libgbm.so.1 libgbm.so.1.0.0 libmali.so libmali.so.1 libMaliOpenCL.so libOpenCL.so libwayland-egl.so libwayland-egl.so.1 libwayland-egl.so.1.0.0
+do
+  sudo rm -fv ${LIB}
+  sudo ln -sfv libMali.so ${LIB}
+done
+cd ../../../../
+sudo chroot Arkbuild/ ldconfig
+setup_ark_user
+echo -e "Generating /etc/fstab"
+echo -e "LABEL=ROOTFS / ext4 defaults, noatime 0 1
+LABEL=BOOT /boot vfat defaults 0 0
+LABEL=EASYROMS /roms vfat defaults,auto,umask=000,uid=1000,gid=1000,noatime 0 0" | sudo tee Arkbuild/etc/fstab
+echo -e "Generating 10-standard.rules for udev"
+echo -e "# Rules
+KERNEL==\"mali0\", GROUP=\"video\", MODE=\"0660\"
+KERNEL==\"rga\", GROUP=\"video\", MODE=\"0660\"
+ACTION==\"add\", SUBSYSTEM==\"backlight\", RUN+=\"/bin/chgrp video /sys/class/backlight/%k/brightness\"
+ACTION==\"add\", SUBSYSTEM==\"backlight\", RUN+=\"/bin/chmod g+w /sys/class/backlight/%k/brightness\"" | sudo tee Arkbuild/etc/udev/rules.d/10-standard.rules
+echo -e "Generating 40-usb_modeswitch.rules for udev"
+echo -e "# Rules
+ACTION!=\"add|change\", GOTO=\"end_modeswitch\"
+
+# Atheros Wireless / Netgear WNDA3200
+ATTRS{idVendor}==\"0cf3\", ATTRS{idProduct}==\"20ff\", RUN+=\"/usr/bin/eject '/dev/%k'\"
+
+# Realtek RTL8821CU chipset 802.11ac NIC
+#   initial cdrom mode 0bda:1a2b, wlan mode 0bda:c811
+# Odroid WiFi Module 5B
+#   initial cdrom mode 0bda:1a2b, wlan mode 0bda:c820
+ATTR{idVendor}==\"0bda\", ATTR{idProduct}==\"1a2b\", RUN+=\"/usr/sbin/usb_modeswitch -K -v 0bda -p 1a2b\"
+ATTR{idVendor}==\"0bda\", ATTR{idProduct}==\"c811\", RUN+=\"/usr/sbin/usb_modeswitch -K -v 0bda -p c811\"
+
+LABEL=\"end_modeswitch\"" | sudo tee Arkbuild/etc/udev/rules.d/40-usb_modeswitch.rules
+sudo chroot Arkbuild/ umount /proc
+
