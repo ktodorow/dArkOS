@@ -35,12 +35,15 @@ from argparse import ArgumentParser
 
 import urwid
 from urwid.widget import Text, Divider
-from urwid.container import Columns, Frame, GridFlow, Overlay, Pile, WidgetWrap
+from urwid.container import Columns, Frame, GridFlow, Overlay, Pile
 from urwid.decoration import AttrMap, AttrWrap, Filler, Padding
 from urwid.graphics import LineBox
 from urwid.signals import connect_signal
 from urwid.command_map import ACTIVATE
-
+try:
+  from urwid.container import WidgetWrap
+except:
+  from urwid.widget import WidgetWrap, FLOW
 
 ASCII_BLOCK = '█'
 
