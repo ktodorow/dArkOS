@@ -1,5 +1,6 @@
 #!/bin/bash
 printf "\033c" >> /dev/tty1
+export SDL_VIDEO_EGL_DRIVER=libEGL.so
 if [[ ! -z "$(tr -d '\0' < /proc/device-tree/compatible | grep rk3326)" ]] && [[ $(tty) != *"pts"* ]]; then
   cp /home/ark/.asoundrcbak /home/ark/.asoundrc
   gpu="ff400000"

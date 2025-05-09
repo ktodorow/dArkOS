@@ -8,7 +8,7 @@ if ! [ -f /usr/bin/qemu-aarch64-static ]; then
 fi
 
 # Bootstrap base system
-sudo eatmydata debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=arm64 --foreign trixie Arkbuild http://deb.debian.org/debian/
+sudo eatmydata debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=arm64 --foreign bookworm Arkbuild http://deb.debian.org/debian/
 sudo cp /usr/bin/qemu-aarch64-static Arkbuild/usr/bin/
 sudo chroot Arkbuild/ apt-get -y install eatmydata
 sudo chroot Arkbuild/ eatmydata /debootstrap/debootstrap --second-stage
@@ -28,7 +28,7 @@ sudo chroot Arkbuild/ mount -t proc proc /proc
 # Enable armhf architecture and update
 sudo chroot Arkbuild/ dpkg --add-architecture armhf
 sudo chroot Arkbuild/ eatmydata apt-get -y update
-sudo chroot Arkbuild/ eatmydata apt-get -y install libc6:armhf liblzma5:armhf libasound2t64:armhf libfreetype6:armhf libxkbcommon-x11-0:armhf libudev1:armhf libgbm1:armhf
+sudo chroot Arkbuild/ eatmydata apt-get -y install libc6:armhf liblzma5:armhf libasound2t64:armhf libfreetype6:armhf libxkbcommon-x11-0:armhf libudev1:armhf libudev0:armhf libgbm1:armhf libstdc++6:armhf
 
 # Install base runtime packages
 sudo chroot Arkbuild/ eatmydata apt-get install -y initramfs-tools sudo evtest network-manager systemd-sysv locales locales-all ssh dosfstools fluidsynth

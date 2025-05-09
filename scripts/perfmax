@@ -1,5 +1,6 @@
 #!/bin/bash
 printf "\033c" >> /dev/tty1
+export SDL_VIDEO_EGL_DRIVER=libEGL.so
 
 if [[ "$(tr -d '\0' < /proc/device-tree/compatible)" == *"rk3326"* ]]; then
   isitrk3326="True"

@@ -61,6 +61,13 @@ sudo cp scripts/audiostate.service Arkbuild/etc/systemd/system/audiostate.servic
 #sudo chroot Arkbuild/ bash -c "systemctl enable audiopath"
 sudo chroot Arkbuild/ bash -c "systemctl enable audiostate"
 
+# Copy necessary tools for expansion of ROOTFS and convert fat32 games partition to exfat on initial boot
+sudo cp scripts/expandtoexfat.sh.rk3326 ${mountpoint}/expandtoexfat.sh
+sudo cp scripts/firstboot.sh ${mountpoint}/firstboot.sh
+sudo cp scripts/fstab.exfat.rk3326 ${mountpoint}/fstab.exfat
+sudo cp scripts/firstboot.service Arkbuild/etc/systemd/system/firstboot.service
+sudo chroot Arkbuild/ bash -c "systemctl enable firstboot"
+
 # Disable getty on tty0 and tty1
 sudo chroot Arkbuild/ bash -c "systemctl disable getty@tty0.service getty@tty1.service"
 
@@ -159,6 +166,10 @@ sudo cp -a scummvm/menu.scummvm ${fat32_mountpoint}/scummvm/
 
 # Clone some themes to the roms/themes folder
 sudo git clone https://github.com/Jetup13/es-theme-nes-box.git ${fat32_mountpoint}/themes/es-theme-nes-box
+sync
+
+# Create roms.tar for use after exfat partition creation
+sudo tar -C mnt/ -cvf Arkbuild/roms.tar roms
 
 # Remove and cleanup fat32 roms mountpoint
 sudo chmod -R 755 ${fat32_mountpoint}

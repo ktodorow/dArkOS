@@ -1,5 +1,6 @@
 #!/bin/bash
 printf "\033c" >> /dev/tty1
+export SDL_VIDEO_EGL_DRIVER=libEGL.so
 #cp /home/ark/.asoundrcbak /home/ark/.asoundrc
 if [ -f "/roms/launchimages/loading.jpg" ]; then
   image-viewer /roms/launchimages/loading.jpg &

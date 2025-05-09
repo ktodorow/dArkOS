@@ -4,7 +4,7 @@
 sudo chroot Arkbuild/ bash -c "cd /home/ark &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&
-  ./builds-alt.sh scummvm
+  eatmydata ./builds-alt.sh scummvm
   "
 sudo mkdir -p Arkbuild/opt/scummvm
 sudo mkdir -p Arkbuild/home/ark/.config/scummvm

@@ -7,6 +7,7 @@ Type=simple
 User=ark
 WorkingDirectory=/home/ark
 ExecStart=/usr/bin/emulationstation/emulationstation.sh
+Environment="SDL_VIDEO_EGL_DRIVER=libEGL.so"
 Restart=on-failure
 
 [Install]

@@ -4,7 +4,7 @@
 sudo chroot Arkbuild/ bash -c "cd /home/ark &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&
-  ./builds-alt.sh ecwolfsa
+  eatmydata ./builds-alt.sh ecwolfsa
   "
 sudo mkdir -p Arkbuild/opt/ecwolf
 sudo mkdir -p Arkbuild/home/ark/.config/ecwolf

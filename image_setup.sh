@@ -1,6 +1,7 @@
 #!/bin/bash
 
 echo -e "Setup the Image file...\n\n"
+sleep 10
 # Image creation
 DISK="ArkOS_RGB10.img"
 dd if=/dev/zero of="${DISK}" bs=1M count=0 seek="${DISK_SIZE}" conv=fsync

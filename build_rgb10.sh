@@ -1,5 +1,7 @@
 #!/bin/bash
-
+#exec 3>&1 4>&2
+#trap 'exec 2>&4 1>&3' 0 1 2 3
+#exec 1>build.log 2>&1
 #set -e
 
 # Load shared utilities (if any)
@@ -17,8 +19,8 @@ source ./build_emulationstation.sh
 source ./build_retroarch.sh
 source ./build_mednafen.sh
 source ./build_ecwolfsa.sh
-source ./build_scummvmsa.sh
 source ./build_ppssppsa.sh
+source ./build_scummvmsa.sh
 source ./build_ogage.sh
 source ./build_351files.sh
 source ./build_filebrowser.sh

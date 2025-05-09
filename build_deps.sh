@@ -1,89 +1,38 @@
 #!/bin/bash
 
+echo -e "Installing build dependencies and needed packages...\n\n"
+
 if [ "$1" == "32" ]; then
+  BIT="32"
   ARCH="arm-linux-gnueabihf"
   CHROOT_DIR="Arkbuild32"
 else
+  BIT="64"
   ARCH="aarch64-linux-gnu"
   CHROOT_DIR="Arkbuild"
 fi
 
+# Install additional needed packages and protect them from autoremove
+while read NEEDED_PACKAGE; do
+  if [[ ! "$NEEDED_PACKAGE" =~ ^# ]]; then
+    install_package $BIT "${NEEDED_PACKAGE}"
+    protect_package $BIT "${NEEDED_PACKAGE}"
+  fi
+done <needed_packages.txt
+
 # Install build dependencies
-sudo chroot ${CHROOT_DIR}/ bash -c "apt-get -y update && DEBIAN_FRONTEND=noninteractive eatmydata apt-get install -y \
-  alsa-utils \
-  autotools-dev \
-  brightnessctl \
-  build-essential \
-  cmake \
-  console-setup \
-  dialog \
-  dos2unix \
-  espeak-ng \
-  exfatprogs \
-  ffmpeg \
-  fonts-noto-cjk \
-  g++ \
-  g++-12 \
-  gcc-12 \
-  git \
-  liba52-0.7.4 \
-  libarchive-zip-perl \
-  libasound2-dev \
-  libboost-date-time-dev \
-  libboost-filesystem-dev \
-  libboost-locale-dev \
-  libboost-system-dev \
-  libcurl4-openssl-dev \
-  libdrm-dev \
-  libeigen3-dev \
-  libevdev-dev \
-  libfaad2 \
-  libfreeimage-dev \
-  libfreetype6-dev \
-  libmad0 \
-  libmpeg2-4 \
-  libnl-3-dev \
-  libnl-genl-3-dev \
-  libnl-route-3-dev \
-  libopenal-dev \
-  libopenal1 \
-  libsdl2-dev \
-  libsdl2-image-2.0-0 \
-  libsdl2-image-dev \
-  libsdl2-mixer-dev \
-  libsdl2-net-2.0-0 \
-  libsdl2-ttf-2.0-0 \
-  libsdl2-ttf-dev \
-  libspeechd2 \
-  libstdc++-12-dev \
-  libtheoradec1 \
-  libtool \
-  libtool-bin \
-  libvlc-dev \
-  libvlccore-dev \
-  ninja-build \
-  p7zip-full \
-  premake4 \
-  psmisc \
-  python3 \
-  python3-evdev \
-  python3-pip \
-  python3-setuptools \
-  python3-urwid \
-  python3-wheel \
-  rapidjson-dev \
-  rustc \
-  tar \
-  unzip \
-  vlc-bin \
-  wget \
-  zip"
+while read NEEDED_DEV_PACKAGE; do
+  if [[ ! "$NEEDED_DEV_PACKAGE" =~ ^# ]]; then
+    install_package $BIT "${NEEDED_DEV_PACKAGE}"
+    protect_package $BIT "${NEEDED_DEV_PACKAGE}"
+  fi
+done <needed_dev_packages.txt
 
 # Default gcc and g++ to version 12
-sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10"
-sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 20"
-sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --set gcc \"/usr/bin/gcc-12\""
-sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --set g++ \"/usr/bin/g++-12\""
+#sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-12 10"
+#sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-12 20"
+#sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --set gcc \"/usr/bin/gcc-12\""
+#sudo chroot ${CHROOT_DIR}/ bash -c "update-alternatives --set g++ \"/usr/bin/g++-12\""
 
 # Symlink fix for DRM headers
 sudo chroot ${CHROOT_DIR}/ bash -c "ln -s /usr/include/libdrm/ /usr/include/drm"

@@ -1,5 +1,6 @@
 #!/bin/bash
 
+export SDL_VIDEO_EGL_DRIVER=libEGL.so
 rootdirectory=$(dirname "$3" | cut -d "/" -f2)
 romsdirectory=$(dirname "$3" | cut -d "/" -f3)
 

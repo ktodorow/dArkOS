@@ -14,7 +14,7 @@ if [ "$ARCH" == "arm-linux-gnueabihf" ]; then
     if [ ! -d rk3326_core_builds ]; then git clone https://github.com/christianhaitian/rk3326_core_builds.git; fi &&
     cd rk3326_core_builds &&
     chmod 777 builds-alt.sh &&
-    ./builds-alt.sh sdl2 &&
+    eatmydata ./builds-alt.sh sdl2 &&
     cd SDL &&
     make install
     "
@@ -23,7 +23,7 @@ else
     if [ ! -d rk3326_core_builds ]; then git clone https://github.com/christianhaitian/rk3326_core_builds.git; fi &&
     cd rk3326_core_builds &&
     chmod 777 builds-alt.sh &&
-    ./builds-alt.sh sdl2 &&
+    eatmydata ./builds-alt.sh sdl2 &&
     cd SDL/build &&
     make install
     "

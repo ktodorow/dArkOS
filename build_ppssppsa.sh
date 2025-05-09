@@ -4,7 +4,7 @@
 sudo chroot Arkbuild/ bash -c "cd /home/ark &&
   cd rk3326_core_builds &&
   chmod 777 builds-alt.sh &&
-  ./builds-alt.sh ppsspp
+  eatmydata ./builds-alt.sh ppsspp
   "
 sudo mkdir -p Arkbuild/opt/ppsspp
 sudo cp -Ra Arkbuild/home/ark/rk3326_core_builds/ppsspp/build/assets/ Arkbuild/opt/ppsspp/

@@ -90,3 +90,53 @@ function remove_arkbuild32() {
   sudo umount -l Arkbuild32
   sudo rm -rf Arkbuild32
 }
+
+updateapt="N"
+function install_package() {
+  if [ "$1" == "32" ]; then
+    NEEDED_ARCH=""
+    CHROOT_DIR="Arkbuild32"
+  elif [ "$1" == "armhf" ]; then
+    NEEDED_ARCH=":armhf"
+    CHROOT_DIR="Arkbuild"
+  else
+    NEEDED_ARCH=":arm64"
+    CHROOT_DIR="Arkbuild"
+  fi
+  neededlibs=( ${@:2} )
+  for libs in "${neededlibs[@]}"
+  do
+     sudo chroot ${CHROOT_DIR}/ dpkg -s "${libs}${NEEDED_ARCH}" &>/dev/null
+     if [[ $? != "0" ]]; then
+       if [[ "$updateapt" == "N" ]]; then
+         sudo chroot ${CHROOT_DIR}/ apt-get -y update
+         updateapt="Y"
+       fi
+       sudo chroot ${CHROOT_DIR}/ bash -c "DEBIAN_FRONTEND=noninteractive eatmydata apt-get -y install ${libs}${NEEDED_ARCH}"
+       if [[ $? != "0" ]]; then
+         echo " "
+         echo "Could not install needed library ${libs}${NEEDED_ARCH}."
+       else
+	     echo "${libs}${NEEDED_ARCH} was successfully installed."
+       fi
+     fi
+  done
+}
+
+function protect_package() {
+  if [ "$1" == "32" ]; then
+    CHROOT_DIR="Arkbuild32"
+  else
+    CHROOT_DIR="Arkbuild"
+  fi
+  protectlibs=( ${@:2} )
+  for protectedlib in "${protectlibs[@]}"
+  do
+     sudo chroot ${CHROOT_DIR}/ apt-mark manual "${protectedlib}"
+     if [[ $? != "0" ]]; then
+       echo "${protectedlib} could not mark as manually installed."
+     else
+	   echo "$${protectedlib} has been marked as manually installed."
+     fi
+  done
+}
