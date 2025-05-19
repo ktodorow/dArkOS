@@ -3,7 +3,20 @@
 #trap 'exec 2>&4 1>&3' 0 1 2 3
 #exec 1>build.log 2>&1
 #set -e
-
+if [ -f "build.log" ]; then
+  ext=1
+  while true
+  do
+    if [ -f "build.log.${ext}" ]; then
+      let ext=ext+1
+	  continue
+	else
+      mv build.log build.log.${ext}
+	  break
+	fi
+  done
+fi
+(
 # Load shared utilities (if any)
 source ./utils.sh
 
@@ -30,7 +43,7 @@ source ./cleanup_filesystem.sh
 source ./write_rootfs.sh
 source ./clean_mounts.sh
 source ./create_image.sh
-
+) 2>&1 | tee -a build.log
 # You can insert additional build steps here (e.g., bootloader, splash setup)
 
 echo "RGB10 build completed. Final image is ready."
