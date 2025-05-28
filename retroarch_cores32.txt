@@ -2,6 +2,7 @@
 flycast32_rumble
 flycast_xtreme
 gpsp
+parallel_n64
 pcsx_rearmed
 pcsx_rearmed_rumble
 reicast_xtreme

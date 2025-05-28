@@ -1,13 +1,18 @@
 # Game system folders to be created are listed below
 arcade
+atomiswave
 bios
 cps1
 cps2
 cps3
+doom
+dreamcast
 gb
 gba
 gbc
 launchimages
+n64
+naomi
 neogeo
 nes
 psp

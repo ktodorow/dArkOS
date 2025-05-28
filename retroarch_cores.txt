@@ -8,7 +8,11 @@ gambatte
 gpsp
 mgba
 mgba_rumble
+mupen64plus
+mupen64plus_next
 nestopia
+parallel_n64
 pcsx_rearmed
 ppsspp
+prboom
 scummvm
