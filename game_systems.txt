@@ -19,5 +19,6 @@ psp
 pspminis
 psx
 scummvm
+themes
 tools
 wolf

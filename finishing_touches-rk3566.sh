@@ -24,7 +24,9 @@ echo "rg353m" | sudo tee Arkbuild/etc/hostname
 sudo sed -i '/localhost/s//localhost rg353m/' Arkbuild/etc/hosts
 
 # Copy the necessary .asoundrc file for proper audio in emulationstation and emulators
-sudo cp audio/.asoundrc* Arkbuild/home/ark/
+sudo cp audio/.asoundrc.${CHIPSET} Arkbuild/home/ark/.asoundrc
+sudo cp audio/.asoundrcbak.${CHIPSET} Arkbuild/home/ark/.asoundrcbak
+sudo cp audio/.asoundrcbt.${CHIPSET} Arkbuild/home/ark/.asoundrcbt
 sudo chown ark:ark Arkbuild/home/ark/.asoundrc*
 
 # Sleep script
@@ -133,7 +135,7 @@ sudo umount ${mountpoint}
 #sudo mkfs.vfat -F 32 -n EASYROMS ${LOOP_ROM}
 fat32_mountpoint=mnt/roms
 mkdir -p ${fat32_mountpoint}
-sudo mount ${LOOP_DEV}p5 ${fat32_mountpoint}
+#sudo mount ${LOOP_DEV}p5 ${fat32_mountpoint}
 sudo mkdir -p Arkbuild/roms
 while read GAME_SYSTEM; do
   if [[ ! "$GAME_SYSTEM" =~ ^# ]]; then
@@ -143,8 +145,8 @@ while read GAME_SYSTEM; do
 done <game_systems.txt
 
 # Copy default game launch images
-sudo cp launchimages/loading.ascii.rgb10 ${fat32_mountpoint}/launchimages/loading.ascii
-sudo cp launchimages/loading.jpg.rgb10 ${fat32_mountpoint}/launchimages/loading.jpg
+sudo cp launchimages/loading.ascii.rg353m ${fat32_mountpoint}/launchimages/loading.ascii
+sudo cp launchimages/loading.jpg.rg353m ${fat32_mountpoint}/launchimages/loading.jpg
 
 # Copy various tools to roms folders
 sudo cp -a ecwolf/Scan* ${fat32_mountpoint}/wolf/
@@ -161,6 +163,6 @@ sudo tar -C mnt/ -cvf Arkbuild/roms.tar roms
 # Remove and cleanup fat32 roms mountpoint
 sudo chmod -R 755 ${fat32_mountpoint}
 sync
-sudo umount ${fat32_mountpoint}
+#sudo umount ${fat32_mountpoint}
 #sudo losetup -d ${LOOP_ROM}
 sudo rm -rf ${fat32_mountpoint}

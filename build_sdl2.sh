@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ "$CHIPSET" == "rk3326" ]; then
+  sub_folder="build"
+else
+  sub_folder=""
+fi
+
 if [ "$1" == "32" ]; then
   ARCH="arm-linux-gnueabihf"
   CHROOT_DIR="Arkbuild32"
@@ -15,7 +21,7 @@ if [ "$ARCH" == "arm-linux-gnueabihf" ]; then
     cd ${CHIPSET}_core_builds &&
     chmod 777 builds-alt.sh &&
     eatmydata ./builds-alt.sh sdl2 &&
-    cd SDL &&
+    cd SDL/${sub_folder} &&
     make install
     "
 else

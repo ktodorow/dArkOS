@@ -65,7 +65,7 @@ sudo chroot Arkbuild/ eatmydata apt-get install -y libdrm-dev libgbm1
 setup_ark_user
 sleep 10
 echo -e "Generating /etc/fstab"
-echo -e "LABEL=ROOTFS / ext4 defaults, noatime 0 1
+echo -e "/dev/mmcblk1p4 / ext4 defaults, noatime 0 1
 /dev/mmcblk1p3 /boot vfat defaults,noatime 0 2" | sudo tee Arkbuild/etc/fstab
 echo -e "Generating 10-standard.rules for udev"
 echo -e "# Rules
