@@ -27,17 +27,3 @@ export PATH=/opt/toolchains/gcc-linaro-6.3.1-2017.05-x86_64_aarch64-linux-gnu/bi
 #parted -s "${DISK}" set 2 lba off
 #parted -s "${DISK}" -a min unit s mkpart primary fat32 ${ROM_PART_START} ${ROM_PART_END}
 sync
-
-
-
-# Build uboot and install it to the image
-#git clone --depth=1 https://github.com/christianhaitian/u-boot-${CHIPSET}
-#cd u-boot-${CHIPSET}
-#./make.sh odroidgoa
-
-#dd if="sd_fuse/idbloader.img" of="../${DISK}" bs=512 seek=64 conv=sync,noerror,notrunc
-#dd if="sd_fuse/uboot.img" of="../${DISK}" bs=512 seek=16384 conv=sync,noerror,notrunc
-#dd if="sd_fuse/trust.img" of="../${DISK}" bs=512 seek=24576 conv=sync,noerror,notrunc
-
-#cd ..
-#rm -rf u-boot-${CHIPSET}

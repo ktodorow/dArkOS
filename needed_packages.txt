@@ -56,5 +56,5 @@ tar
 unzip
 vlc-bin
 wget
+xfsprogs
 zip
-

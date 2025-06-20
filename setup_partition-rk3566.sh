@@ -41,7 +41,7 @@ sleep 2
 
 # Format partitions where needed
 sudo mkfs.vfat -n ANBERNIC "${LOOP_DEV}p3"
-sudo mkfs.ext4 -L rootfs "${LOOP_DEV}p4"
+sudo mkfs.xfs -L rootfs "${LOOP_DEV}p4"
 sudo mkfs.vfat -n ROMS "${LOOP_DEV}p5"
 
 # Copy content (example only)
@@ -57,9 +57,9 @@ sudo mkfs.vfat -n ROMS "${LOOP_DEV}p5"
 #tar -xpf rootfs/rootfs.tar.gz -C /mnt
 #umount /mnt
 
-echo "Flashing uboot.img and resource.img..."
-sudo dd if=device/rk3566/uboot.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=16384 conv=notrunc
-sudo dd if=device/rk3566/resource.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=24576 conv=notrunc
+#echo "Flashing uboot.img and resource.img..."
+#sudo dd if=device/rk3566/uboot.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=16384 conv=notrunc
+#sudo dd if=device/rk3566/resource.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=24576 conv=notrunc
 
 dd if=/dev/zero of="${FILESYSTEM}" bs=1M count=0 seek="${BUILD_SIZE}" conv=fsync
 sudo mkfs.ext4 -F -L ROOTFS "${FILESYSTEM}"

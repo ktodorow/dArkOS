@@ -12,3 +12,4 @@ call_chroot "cd /home/ark &&
   chmod 777 /opt/quitter/oga_controls &&
   chown -R ark:ark /opt/quitter
   "
+sudo rm -rf Arkbuild/home/ark/oga_controls

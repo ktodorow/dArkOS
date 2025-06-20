@@ -24,7 +24,7 @@ if [ -f "ArkOS_RGB10.img" ]; then
 fi
 
 dd if=/dev/zero of="${FILESYSTEM}" bs=1M count=0 seek="${BUILD_SIZE}" conv=fsync
-sudo mkfs.ext4 -F -L ROOTFS "${FILESYSTEM}"
+sudo mkfs.xfs -F -L ROOTFS "${FILESYSTEM}"
 mkdir -p Arkbuild/
 sudo mount -t ext4 -o loop ${FILESYSTEM} Arkbuild/
 
