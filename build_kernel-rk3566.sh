@@ -73,7 +73,7 @@ cp ../resource.img rk3566_tool/Image/
 ./make.sh rk3566
 
 echo "Flashing uboot.img and resource.img..."
-cp uboot.img device/rk3566/uboot.img.jelos
+sudo cp uboot.img ../../Arkbuild/usr/local/bin/uboot.img.jelos
 sudo dd if=uboot.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=16384 conv=notrunc
 sudo dd if=rk3566_tool/Image/resource.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=24576 conv=notrunc
 #sudo dd if=device/rk3566/uboot.img of=$LOOP_DEV bs=$SECTOR_SIZE seek=16384 conv=notrunc

@@ -11,6 +11,6 @@ sudo mkdir -p Arkbuild/opt/OpenBOR/Paks
 sudo mkdir -p Arkbuild/opt/OpenBOR/Saves
 sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/openbor-64/OpenBOR Arkbuild/opt/OpenBOR/
 sudo cp -a openbor/configs/master.cfg.${UNIT} Arkbuild/opt/OpenBOR/Saves/
-sudo cp openbor/OpenBOR.sh Arkbuild/opt/OpenBOR/OpenBor.sh
+sudo cp openbor/OpenBor.sh Arkbuild/opt/OpenBOR/OpenBor.sh
 call_chroot "chown -R ark:ark /opt/"
 sudo chmod 777 Arkbuild/opt/OpenBOR/OpenBor.sh

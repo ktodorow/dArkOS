@@ -40,7 +40,6 @@ source ./build_mednafen.sh
 source ./build_ecwolfsa.sh
 source ./build_hypseus-singe.sh
 source ./build_openbor.sh
-source ./build_linapple.sh
 source ./build_scummvmsa.sh
 source ./build_fake08.sh
 source ./build_xroar.sh
@@ -51,6 +50,7 @@ source ./build_filebrowser.sh
 source ./build_gptokeyb.sh
 source ./build_drmtool.sh
 source ./build_emulationstation-rk3566.sh
+source ./build_linapple.sh
 source ./finishing_touches-rk3566.sh
 source ./cleanup_filesystem.sh
 source ./write_rootfs-rk3566.sh
