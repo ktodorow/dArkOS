@@ -76,7 +76,7 @@ elif [[ $1 == "retrorun" ]]; then
     #sleep 0.2
     ESUDO="sudo --preserve-env=DEVICE_NAME"
     DEVICENAME="RG351V"
-  elif [ -f "/boot/rk3566.dtb" ] || [ -f "/boot/rk3566-OC.dtb" ]; then
+  elif compgen -G "/boot/rk3566*" > /dev/null; then
     if test ! -z "$(grep "RG353V" /home/ark/.config/.DEVICE | tr -d '\0')"
     then
       DEVICENAME="RG353V"
@@ -143,7 +143,7 @@ else
     #sleep 0.2
     ESUDO="sudo --preserve-env=DEVICE_NAME"
     DEVICENAME="RG351V"
-  elif [ -f "/boot/rk3566.dtb" ] || [ -f "/boot/rk3566-OC.dtb" ]; then
+  elif compgen -G "/boot/rk3566*" > /dev/null; then
     if test ! -z "$(grep "RG353V" /home/ark/.config/.DEVICE | tr -d '\0')"
     then
       DEVICENAME="RG353V"

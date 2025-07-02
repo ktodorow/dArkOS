@@ -1,21 +1,5 @@
 #!/bin/bash
 
-if [[ -e "/dev/input/by-path/platform-ff300000.usb-usb-0:1.2:1.0-event-joystick" ]]; then
-  param_device="anbernic"
-elif [[ -e "/dev/input/by-path/platform-odroidgo2-joypad-event-joystick" ]]; then
-  if [[ ! -z $(cat /etc/emulationstation/es_input.cfg | grep "190000004b4800000010000001010000") ]]; then
-    param_device="oga"
-  else
-    param_device="rk2020"
-  fi
-elif [[ -e "/dev/input/by-path/platform-odroidgo3-joypad-event-joystick" ]]; then
-  param_device="ogs"
-elif [[ -e "/dev/input/by-path/platform-singleadc-joypad-event-joystick" ]]; then
-  param_device="rg503"
-else
-  param_device="chi"
-fi
-
 if [[ $1 == *"standalone"* ]]; then
   directory=$(dirname "$2" | cut -d "/" -f2)
   if [[ ! -d "/$directory/saturn/yabasanshiro" ]]; then
@@ -28,7 +12,8 @@ if [[ $1 == *"standalone"* ]]; then
     fi
     cp -f /etc/emulationstation/es_input.cfg input.cfg
   fi
-  sudo /opt/quitter/oga_controls yaba $param_device &
+  echo "VAR=yaba" > /home/ark/.config/KILLIT
+  sudo systemctl start killer_daemon.service
   if [[ $1 == "standalone-bios" ]]; then
     if [[ ! -f "/$directory/bios/saturn_bios.bin" ]]; then
       printf "\033c" >> /dev/tty1
@@ -44,9 +29,7 @@ if [[ $1 == *"standalone"* ]]; then
   else
     ./yabasanshiro -r 3 -i "$2"
   fi
-  if [[ ! -z $(pidof oga_controls) ]]; then
-    sudo kill -9 $(pidof oga_controls)
-  fi
+  sudo systemctl stop killer_daemon.service
   sudo systemctl restart ogage &
   cd ~
 elif  [[ $1 == "retroarch" ]]; then

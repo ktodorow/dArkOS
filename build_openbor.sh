@@ -6,11 +6,11 @@ call_chroot "cd /home/ark &&
   chmod 777 builds-alt.sh &&
   eatmydata ./builds-alt.sh openbor
   "
-sudo mkdir -p Arkbuild/opt/OpenBOR
-sudo mkdir -p Arkbuild/opt/OpenBOR/Paks
-sudo mkdir -p Arkbuild/opt/OpenBOR/Saves
-sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/openbor-64/OpenBOR Arkbuild/opt/OpenBOR/
-sudo cp -a openbor/configs/master.cfg.${UNIT} Arkbuild/opt/OpenBOR/Saves/
-sudo cp openbor/OpenBor.sh Arkbuild/opt/OpenBOR/OpenBor.sh
+sudo mkdir -p Arkbuild/opt/OpenBor
+sudo mkdir -p Arkbuild/opt/OpenBor/Paks
+sudo mkdir -p Arkbuild/opt/OpenBor/Saves
+sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/openbor-64/OpenBOR Arkbuild/opt/OpenBor/
+sudo cp -a openbor/configs/master.cfg.${UNIT} Arkbuild/opt/OpenBor/Saves/master.cfg
+sudo cp openbor/OpenBor.sh Arkbuild/opt/OpenBor/OpenBor.sh
 call_chroot "chown -R ark:ark /opt/"
-sudo chmod 777 Arkbuild/opt/OpenBOR/OpenBor.sh
+sudo chmod 777 Arkbuild/opt/OpenBor/OpenBor.sh

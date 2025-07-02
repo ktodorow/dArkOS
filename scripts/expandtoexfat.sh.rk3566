@@ -85,6 +85,8 @@ sudo rm -f /boot/doneit
   #sudo rm -f /roms.tar
 #fi
 sudo rm -f /boot/fstab.exfat
+# Reflashing the default jelos uboot again in order to fix light sleep because for some reason, the jelos one flashed during the build doesn't function quite right ¯\_(ツ)_/¯
+sudo dd if=/usr/local/bin/uboot.img.jelos of=/dev/mmcblk1 conv=notrunc bs=512 seek=16384
 if [ $exitcode -eq 0 ]; then
   systemctl disable firstboot.service
   sudo rm -v /boot/firstboot.sh

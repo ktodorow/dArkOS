@@ -45,7 +45,7 @@ if [[ -e "/dev/input/by-path/platform-ff300000.usb-usb-0:1.2:1.0-event-joystick"
   #sleep 0.2
   ESUDO="sudo --preserve-env=DEVICE_NAME"
   DEVICENAME="RG351V"
-elif [ -f "/boot/rk3566.dtb" ] || [ -f "/boot/rk3566-OC.dtb" ]; then
+elif compgen -G "/boot/rk3566*" > /dev/null; then
   if test ! -z "$(grep "RG353V" /home/ark/.config/.DEVICE | tr -d '\0')"
   then
     DEVICENAME="RG353V"
@@ -102,7 +102,7 @@ if [[ -e "/dev/input/by-path/platform-ff300000.usb-usb-0:1.2:1.0-event-joystick"
   #sleep 0.2
   ESUDO="sudo --preserve-env=DEVICE_NAME"
   DEVICENAME="RG351V"
-elif [ -f "/boot/rk3566.dtb" ] || [ -f "/boot/rk3566-OC.dtb" ]; then
+elif compgen -G "/boot/rk3566*" > /dev/null; then
   if test ! -z "$(grep "RG353V" /home/ark/.config/.DEVICE | tr -d '\0')"
   then
     DEVICENAME="RG353V"

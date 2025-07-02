@@ -8,7 +8,7 @@ coco3
 cps1
 cps2
 cps3
-daphne
+daphne/roms
 doom
 dreamcast
 gb
