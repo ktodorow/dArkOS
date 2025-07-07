@@ -1,6 +1,6 @@
-Welcome dArkOS
+# <p align="center">Welcome to dArkOS</p>
 
-Debian based operating system for select RK3326 and RK3566 based portable gaming devices.
+### <p align="center">Debian based version of the ArkOS operating system for select RK3326 and RK3566 based portable gaming devices.</p>
 
 **Building instructions:**
    - Suggested Environment - Ubuntu or related variants, version 24.04 or newer \
@@ -13,7 +13,7 @@ Debian based operating system for select RK3326 and RK3566 based portable gaming
       - Method 2: - Clone this git repo then run `./FreeSudo.sh`.  If there were no errors, it should've completed this change for you. \
                     You can verify this by checking if a `/etc/sudoers.d/$USER` file exists and contains `$USER ALL=(ALL) NOPASSWD: ALL` in it.
      
-Now you should be able to just run make <device> to build for a supported device.  Example: `make rg353m`
+Now you should be able to just run make <device_name> to build for a supported device.  Example: `make rg353m`
 
 **Notes**
 - To build on a different release of Debian, change the DEBIAN_CODE_NAME export in the Makefile.  Other debian code names can be found at https://www.debian.org/releases/
