@@ -1,9 +1,17 @@
 #!/bin/bash
 
 echo -e "Boostraping Debian....\n\n"
+if [[ "${ENABLE_CACHE}" == "y" ]]; then
+  export DEBIAN_LOCATION="http://127.0.0.1:3142/deb.debian.org/debian/"
+else
+  export DEBIAN_LOCATION="http://deb.debian.org/debian/"
+fi
 # Bootstrap base system
-sudo eatmydata debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=arm64 --foreign ${DEBIAN_CODE_NAME} Arkbuild http://deb.debian.org/debian/
+sudo eatmydata debootstrap --no-check-gpg --include=eatmydata --resolve-deps --arch=arm64 --foreign ${DEBIAN_CODE_NAME} Arkbuild ${DEBIAN_LOCATION}
 sudo cp /usr/bin/qemu-aarch64-static Arkbuild/usr/bin/
+if [[ "${ENABLE_CACHE}" == "y" ]]; then
+  echo 'Acquire::http::proxy "http://127.0.0.1:3142";' | sudo tee Arkbuild/etc/apt/apt.conf.d/99proxy
+fi
 sudo chroot Arkbuild/ apt-get -y install ccache eatmydata
 sudo chroot Arkbuild/ eatmydata /debootstrap/debootstrap --second-stage
 

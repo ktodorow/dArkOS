@@ -1,13 +1,17 @@
 SHELL := /bin/bash
 
 DEBIAN_CODE_NAME ?= bookworm
+ENABLE_CACHE ?= y
+
 export DEBIAN_CODE_NAME
+export ENABLE_CACHE
 
 ifeq ($(DEBIAN_CODE_NAME),)
   $(error DEBIAN_CODE_NAME is not set. Please run with DEBIAN_CODE_NAME=suite (e.g., bookworm))
 endif
 
 $(info dArkOS will be built using the $(DEBIAN_CODE_NAME) release of Debian.)
+$(info debian building caching enabled? ${ENABLE_CACHE}.)
 
 all:
 	@echo "Please specify a valid build target: make rgb10 or make rg353m"
