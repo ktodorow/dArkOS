@@ -35,6 +35,8 @@ sudo cp Emulationstation/es_input.cfg.${UNIT} Arkbuild/etc/emulationstation/es_i
 sudo cp Emulationstation/es_settings.cfg.${UNIT} Arkbuild/home/ark/.emulationstation/es_settings.cfg
 sudo cp Emulationstation/emulationstation.sh.${UNIT} Arkbuild/usr/bin/emulationstation/emulationstation.sh
 sudo cp Emulationstation/fonts/* Arkbuild/usr/bin/emulationstation/resources/
+sudo cp -R Emulationstation/scripts/ Arkbuild/home/ark/.emulationstation/
+sudo chmod -R 777 Arkbuild/home/ark/.emulationstation/scripts/*
 call_chroot "chown -R ark:ark /etc/emulationstation/"
 call_chroot "chown -R ark:ark /home/ark/"
 sudo chmod 777 Arkbuild/usr/bin/emulationstation/emulationstation.sh

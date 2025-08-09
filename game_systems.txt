@@ -15,6 +15,7 @@ atarilynx
 atarixegs
 atomiswave
 bbcmicro
+bgmusic
 bios
 cdimono1
 coco3

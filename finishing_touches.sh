@@ -179,6 +179,10 @@ sudo chmod 777 Arkbuild/usr/local/bin/*
 sudo rm -rf Arkbuild/etc/emulationstation/themes/
 sudo chroot Arkbuild/ bash -c "ln -sfv /roms/themes/ /etc/emulationstation/themes"
 
+# Link music folder to /roms/bgmusic
+sudo rm -rf Arkbuild/etc/emulationstation/music/
+sudo chroot Arkbuild/ bash -c "ln -sfv /roms/bgmusic/ /etc/emulationstation/music"
+
 # Set launchimage to PIC mode
 sudo chroot Arkbuild/ touch /home/ark/.config/.GameLoadingIModePIC
 
