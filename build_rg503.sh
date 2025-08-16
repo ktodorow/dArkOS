@@ -75,5 +75,5 @@ source ./clean_mounts.sh
 source ./create_image.sh
 ) 2>&1 | tee -a build.log
 
-echo "RG353M build completed. Final image is ready."
+echo "RG503 build completed. Final image is ready."
 
