@@ -57,10 +57,6 @@ libnettle8t64
 libnfs14
 libnfs-dev
 libogg-dev
-libpcre2-8-0
-libpcre2-16-0
-libpcre2-32-0
-libpcre2-dev
 libplist-2.0-4
 libplist-dev
 libpng-dev
@@ -77,8 +73,9 @@ libssl-dev
 libtag2
 libtag-dev
 libtiff5-dev
-libtinyxml2.6.2v5
 libtinyxml-dev
+libtinyxml2.6.2v5
+libtinyxml2-dev
 libudev-dev
 libunistring-dev
 libva-dev
