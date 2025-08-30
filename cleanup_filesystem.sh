@@ -85,7 +85,7 @@ done <needed_packages32.txt
 sync Arkbuild
 
 # Ensure additional needed packages for Kodi are still in place if Kodi is built
-if [[ "$CHIPSET" == *"3566"* ]]; then
+if [[ "$CHIPSET" == *"3566"* ]] && [[ "$BUILD_KODI" == "y" ]]; then
   while read KODI_NEEDED_PACKAGE; do
     if [[ ! "$KODI_NEEDED_PACKAGE" =~ ^# ]] && [[ "$KODI_NEEDED_PACKAGE" != *"-dev"* ]]; then
       install_package 64 ${KODI_NEEDED_PACKAGE}
@@ -113,7 +113,7 @@ cd ../../../../
 # We need to replace the armhf version of libasound2t64 with the older libasound2 binary from Bookworm
 # because the current one supplied wtih Trixie has a ioctl error issue which leads to no audio for 32bit apps
 dpkg --fsys-tarfile libasound2/libasound2_1.2.8-1+b1_armhf.deb | tar -xO ./usr/lib/arm-linux-gnueabihf/libasound.so.2.0.0 > libasound.so.2.0.0
-sudo mv libasound.so.2.0.0 Arkbuild/usr/lib/arm-linux-gnueabihf/
+sudo mv -f libasound.so.2.0.0 Arkbuild/usr/lib/arm-linux-gnueabihf/
 call_chroot "chown root:root /usr/lib/arm-linux-gnueabihf/libasound.so.2.0.0"
 
 cd Arkbuild/usr/lib/aarch64-linux-gnu
