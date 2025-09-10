@@ -55,7 +55,7 @@ elif compgen -G "/boot/rk3566*" > /dev/null; then
   else
     DEVICENAME="RG503"
   fi
-elif [ -f "/boot/rk3326-r33s-linux.dtb" ] || [ -f "/boot/rk3326-r35s-linux.dtb" ] || [ -f "/boot/rk3326-r36s-linux.dtb" ] || [ -f "/boot/rk3326-rg351mp-linux.dtb" ]; then
+elif [ -f "/boot/rk3326-r33s-linux.dtb" ] || [ -f "/boot/rk3326-r35s-linux.dtb" ] || [ -f "/boot/rk3326-r36s-linux.dtb" ] || [ -f "/boot/rk3326-rg351mp-linux.dtb" ] || [ -f "/boot/rk3326-g350-linux.dtb" ]; then
 DEVICENAME="RG351MP"
 elif [ -f "/boot/rk3326-gameforce-linux.dtb" ]; then
 DEVICENAME="RG351MP"
@@ -113,7 +113,7 @@ elif compgen -G "/boot/rk3566*" > /dev/null; then
   else
     DEVICENAME="RG503"
   fi
-elif [ -f "/boot/rk3326-r33s-linux.dtb" ] || [ -f "/boot/rk3326-r35s-linux.dtb" ] || [ -f "/boot/rk3326-r36s-linux.dtb" ] || [ -f "/boot/rk3326-rg351mp-linux.dtb" ]; then
+elif [ -f "/boot/rk3326-r33s-linux.dtb" ] || [ -f "/boot/rk3326-r35s-linux.dtb" ] || [ -f "/boot/rk3326-r36s-linux.dtb" ] || [ -f "/boot/rk3326-rg351mp-linux.dtb" ] || [ -f "/boot/rk3326-g350-linux.dtb" ]; then
 DEVICENAME="RG351MP"
 elif [ -f "/boot/rk3326-gameforce-linux.dtb" ]; then
 DEVICENAME="RG351MP"

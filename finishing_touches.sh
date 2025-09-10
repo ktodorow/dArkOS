@@ -183,13 +183,19 @@ sudo cp scripts/netplay.sh Arkbuild/usr/local/bin/
 sudo cp scripts/sleep_governors.sh Arkbuild/usr/local/bin/
 sudo cp scripts/wasitpng.sh Arkbuild/usr/local/bin/
 sudo cp global/* Arkbuild/usr/local/bin/
-# Disable winbin as connectivity to Active Directory is not needed
+# Disable winbind as connectivity to Active Directory is not needed
 sudo chroot Arkbuild/ bash -c "systemctl disable winbind"
+# Disable samba-ad-dc as connectivity to Active Directory is not needed
+sudo chroot Arkbuild/ bash -c "systemctl disable samba-ad-dc"
+# Disable e2scrub_reap if ext file system is not being used for rootfs
+if [ "$ROOT_FILESYSTEM_FORMAT" == "xfs" ] || [ "$ROOT_FILESYSTEM_FORMAT" == "btrfs" ]; then
+  sudo chroot Arkbuild/ bash -c "systemctl disable e2scrub_reap"
+fi
 # Set the default graphical target to multi-user instead of graphical"
 sudo chroot Arkbuild/ bash -c "systemctl set-default multi-user.target"
 if [[ "$UNIT" == "rgb10" ]]; then
   sudo cp device/rgb10/* Arkbuild/usr/local/bin/
-elif [[ "$UNIT" == "rg351mp" ]]; then
+elif [[ "$UNIT" == "rg351mp" ]] || [[ "$UNIT" == "g350" ]]; then
   sudo cp device/rg351mp/*.sh Arkbuild/usr/local/bin/
   sudo cp device/rg351mp/*.py Arkbuild/usr/local/bin/
   sudo cp device/rg351mp/*.green Arkbuild/usr/local/bin/

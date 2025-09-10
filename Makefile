@@ -16,6 +16,12 @@ endif
 all:
 	@echo "Please specify a valid build target: make rgb10 or make rg353m"
 
+g350:
+	$(info dArkOS will be built using the $(DEBIAN_CODE_NAME) release of Debian.)
+	$(info debian building caching enabled? ${ENABLE_CACHE})
+	@sleep 5
+	./build_g350.sh
+
 rgb10:
 	$(info dArkOS will be built using the $(DEBIAN_CODE_NAME) release of Debian.)
 	$(info debian building caching enabled? ${ENABLE_CACHE})

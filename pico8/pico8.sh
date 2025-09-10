@@ -14,9 +14,10 @@ elif [[ -e "/dev/input/by-path/platform-odroidgo2-joypad-event-joystick" ]]; the
   fi
 elif [[ -e "/dev/input/by-path/platform-odroidgo3-joypad-event-joystick" ]]; then
   param_device="ogs"
-  res="854,480"
-  if [ -f "/boot/rk3326-rg351mp-linux.dtb" ]; then
+  if [ -f "/boot/rk3326-rg351mp-linux.dtb" ] || [ -f "/boot/rk3326-g350-linux.dtb" ]; then
     res="640,480"
+  else
+    res="854,480"
   fi
 elif [[ -e "/dev/input/by-path/platform-singleadc-joypad-event-joystick" ]]; then
   param_device="rg503"

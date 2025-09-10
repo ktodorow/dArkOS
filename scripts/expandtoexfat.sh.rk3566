@@ -127,7 +127,12 @@ fi
 	#echo 95
 	sleep 1
 	cd ..
-	sudo rm -rf /tempthemes &> /dev/null
+	while true; do
+	  if [[ -z $(pidof tar) ]]; then
+		sudo rm -rf /tempthemes &> /dev/null
+		break
+	  fi
+	done
 	sleep 2
 	sudo umount /roms &> /dev/null
 	sudo cp -f /boot/fstab.exfat /etc/fstab &> /dev/null
