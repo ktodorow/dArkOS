@@ -3,7 +3,7 @@ set -euo pipefail
 
 # --- Defaults (can be overridden by CLI args) ---
 SRC_SUFFIX="353m"
-DST_SUFFIX="rgb30"
+DST_SUFFIX="353v"
 
 # --- Parse arguments ---
 DRYRUN=0

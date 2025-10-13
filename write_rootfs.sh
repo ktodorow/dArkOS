@@ -22,3 +22,4 @@ elif [ "${ROOT_FILESYSTEM_FORMAT}" == "btrfs" ]; then
   sync Arkbuild
   sudo dd if="${FILESYSTEM}" of="${DISK}" bs=512 seek="${STORAGE_PART_START}" conv=fsync,notrunc
 fi
+sync ${DISK}

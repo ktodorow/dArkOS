@@ -46,6 +46,12 @@ rg353m:
 	@sleep 5
 	./build_rg353m.sh
 
+rg353v:
+	$(info dArkOS will be built using the $(DEBIAN_CODE_NAME) release of Debian.)
+	$(info debian building caching enabled? ${ENABLE_CACHE})
+	@sleep 5
+	./build_rg353v.sh
+
 rg503:
 	$(info dArkOS will be built using the $(DEBIAN_CODE_NAME) release of Debian.)
 	$(info debian building caching enabled? ${ENABLE_CACHE})

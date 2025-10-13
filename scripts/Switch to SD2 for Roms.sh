@@ -4,16 +4,22 @@ if [ ! -d "/roms2/" ]; then
     sudo mkdir /roms2
 fi
 
-blkchk=`lsblk -no FSTYPE /dev/mmcblk2p1`
+if [[ "$(tr -d '\0' < /proc/device-tree/compatible)" == *"rk3326"* ]]; then
+  BLOCK="1"
+else
+  BLOCK="2"
+fi
+
+blkchk=`lsblk -no FSTYPE /dev/mmcblk${BLOCK}p1`
 blkstatus=$?
 
 if test $blkstatus -eq 0
 then
-    blklocation="/dev/mmcblk2p1"
-    blklocationforsed="dev\/mmcblk2p1"
+    blklocation="/dev/mmcblk${BLOCK}p1"
+    blklocationforsed="dev\/mmcblk${BLOCK}p1"
 else
-    blklocation="/dev/mmcblk2"
-    blklocationforsed="dev\/mmcblk2"
+    blklocation="/dev/mmcblk${BLOCK}"
+    blklocationforsed="dev\/mmcblk${BLOCK}"
 fi
 
 filesystem=`lsblk -no FSTYPE $blklocation`

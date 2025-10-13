@@ -510,7 +510,7 @@
 		<name>atari800</name>
 		<fullname>Atari 800</fullname>
 		<path>/roms/atari800/</path>
-		<extension>.atr .ATR .rom .ROM .zip .ZIP .7z .7Z</extension>
+		<extension>.car .CAR .xex .XEX .atx .ATX .bin .BIN .atr .ATR .rom .ROM .zip .ZIP .7z .7Z</extension>
 		<command>sudo perfmax %GOVERNOR% %ROM%; nice -n -19 /usr/local/bin/retroarch --config /home/ark/.config/retroarch/config/Atari800/retroarch_A800.cfg -L /home/ark/.config/retroarch/cores/atari800_libretro.so %ROM%; sudo perfnorm</command>
 		<platform>atari800</platform>
 		<theme>atari800</theme>
@@ -594,7 +594,7 @@
 		<name>atarixegs</name>
 		<fullname>Atari XEGS</fullname>
 		<path>/roms/atarixegs/</path>
-		<extension>.rom .ROM .bin .BIN .xex .XEX .zip .ZIP</extension>
+		<extension>.car .CAR .xex .XEX .atx .ATX .bin .BIN .atr .ATR .rom .ROM .zip .ZIP .7z .7Z</extension>
 		<command>sudo perfmax %GOVERNOR% %ROM%; nice -n -19 /usr/local/bin/retroarch --config /home/ark/.config/retroarch/config/Atari800/retroarch_XEGS.cfg -L /home/ark/.config/retroarch/cores/atari800_libretro.so %ROM%; sudo perfnorm</command>
 		<platform>atarixe</platform>
 		<theme>atarixegs</theme>
