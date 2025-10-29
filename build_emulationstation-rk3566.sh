@@ -12,6 +12,7 @@ echo "export softname=\"dArkOS-${UNIT}\"" | sudo tee -a Arkbuild/home/ark/ES_VAR
 
 if [ -f "Arkbuild_package_cache/${CHIPSET}/emulationstation.tar.gz" ] && [ "$(cat Arkbuild_package_cache/${CHIPSET}/emulationstation.commit)" == "$(curl -s https:/api.github.com/repos/christianhaitian/EmulationStation-fcamod/commits/503noTTS | jq -r '.sha')" ]; then
     sudo tar -xvzpf Arkbuild_package_cache/${CHIPSET}/emulationstation.tar.gz
+    sudo rm Arkbuild/home/ark/ES_VARIABLES.txt
 else
 	call_chroot "apt-get -y update && eatmydata apt-get -y install libfreeimage3 fonts-droid-fallback libfreetype6 curl vlc-bin libsdl2-mixer-2.0-0"
 	call_chroot "cd /home/ark &&
