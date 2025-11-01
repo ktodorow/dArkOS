@@ -7,12 +7,8 @@ if  [[ $1 == "retroarch" ]]; then
 elif [[ $1 == "retroarch32" ]]; then
 /usr/local/bin/"$1" -L /home/ark/.config/"$1"/cores/"$2"_libretro.so "$3"
 elif [[ $1 == "standalone" ]]; then
-  if [ ! -f  "/usr/local/bin/flycastsakeydemon.py" ]; then
-    sudo cp -fv /usr/local/bin/ti99keydemon.py /usr/local/bin/flycastsakeydemon.py
-    sudo chmod 777 /usr/local/bin/flycastsakeydemon.py
-    sudo sed -i 's/pkill ti99sim-sdl/sudo kill -9 \$(pidof flycast)/' /usr/local/bin/flycastsakeydemon.py
-  fi
-sudo /usr/local/bin/flycastsakeydemon.py &
+echo "VAR=flycast" > /home/ark/.config/KILLIT
+sudo systemctl restart killer_daemon.service
 rm -rf "/home/ark/.local/share/flycast"
 directory=$(dirname "$2" | cut -d "/" -f2)
 ln -sf "/$directory/bios/dc" "/home/ark/.local/share/flycast"
@@ -31,9 +27,9 @@ elif [[ -e "/dev/input/by-path/platform-singleadc-joypad-event-joystick" ]]; the
 else
   sdl_controllerconfig="19000000030000000300000002030000,gameforce_gamepad,leftstick:b14,rightx:a3,leftshoulder:b4,start:b9,lefty:a0,dpup:b10,righty:a2,a:b0,b:b1,guide:b16,dpdown:b11,rightshoulder:b5,righttrigger:b7,rightstick:b15,dpright:b13,x:b3,back:b8,leftx:a1,y:b2,dpleft:b12,lefttrigger:b6,platform:Linux,"
 fi
-LD_LIBRARY_PATH=/opt/flycastsa/libs/ SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig" /opt/flycastsa/flycast "$2"
-sudo killall python3
-sudo systemctl restart oga_events &
+SDL_GAMECONTROLLERCONFIG="$sdl_controllerconfig" /opt/flycastsa/flycast "$2"
+sudo systemctl stop killer_daemon.service
+sudo systemctl restart ogage &
 elif [[ $1 == "retrorun" ]]; then
 if [[ -e "/dev/input/by-path/platform-ff300000.usb-usb-0:1.2:1.0-event-joystick" ]]; then
   #sudo rm /dev/input/by-path/platform-odroidgo2-joypad-event-joystick || true

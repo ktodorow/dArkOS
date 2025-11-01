@@ -10,7 +10,6 @@ else
 	  eatmydata ./builds-alt.sh mupen64plussa
 	  "
 	sudo mkdir -p Arkbuild/opt/mupen64plus
-	sudo mkdir -p Arkbuild/home/ark/.config/mupen64plus
 	sudo cp -a Arkbuild/home/ark/${CHIPSET}_core_builds/mupen64plussa-64/* Arkbuild/opt/mupen64plus/
 	sudo rm -f Arkbuild/opt/mupen64plus/*.gz
 	cd Arkbuild/opt/mupen64plus
@@ -25,6 +24,7 @@ else
 	sudo tar -czpf Arkbuild_package_cache/${CHIPSET}/mupen64plussa.tar.gz Arkbuild/opt/mupen64plus/
 	sudo git --git-dir=Arkbuild/home/ark/${CHIPSET}_core_builds/mupen64plus-core/.git --work-tree=Arkbuild/home/ark/${CHIPSET}_core_builds/mupen64plus_core rev-parse HEAD > Arkbuild_package_cache/${CHIPSET}/mupen64plussa.commit
 fi
+sudo mkdir -p Arkbuild/home/ark/.config/mupen64plus
 sudo cp mupen64plus/configs/${UNIT}/mupen64plus.cfg Arkbuild/home/ark/.config/mupen64plus/
 sudo cp mupen64plus/*.ini Arkbuild/opt/mupen64plus/
 sudo cp mupen64plus/scripts/n64.sh Arkbuild/usr/local/bin/

@@ -66,7 +66,7 @@ async def handle_event(device):
     async for event in device.async_read_loop():
         keys = device.active_keys()
         if keymap["f1"] in keys and event.code == keymap["f3"]:
-            runcmd(f"pkill {args.process_name}*", shell=True)
+            runcmd(f"pkill {args.process_name}*; if [ ! -z $(pidof {args.process_name}) ]; then sudo kill -9 $(pidof {args.process_name}); fi", shell=True)
             sys.exit(0)
 
 # Main run loop
