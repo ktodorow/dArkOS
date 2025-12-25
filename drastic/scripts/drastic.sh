@@ -23,4 +23,4 @@ cd /opt/drastic
 
 sudo systemctl stop killer_daemon.service
 
-sudo systemctl restart oga_events &
+sudo systemctl restart ogage &

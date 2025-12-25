@@ -38,6 +38,7 @@ megadrive
 mv
 n64
 naomi
+nds
 neogeo
 nes
 openbor
