@@ -343,6 +343,15 @@ sudo chmod 777 Arkbuild/usr/local/bin/boot_text.sh
 sudo cp scripts/welcome-message.service Arkbuild/etc/systemd/system/welcome-message.service
 sudo chroot Arkbuild/ bash -c "systemctl enable welcome-message"
 
+# Mark completed dArkOS updates with this current build
+release_tags=( $(git -c 'versionsort.suffix=-' ls-remote --tags --sort='v:refname' https://github.com/christianhaitian/darkos-updates.git | cut -d/ -f3- | sed 's/^v//I') )
+if [[ ! -z "$release_tags" ]]; then
+  for release_tag in "${release_tags[@]}"
+  do
+    sudo touch Arkbuild/home/ark/.config/.update${release_tag}
+  done
+fi
+
 # Set the ownver of the ark folder and all sub content to ark
 sudo chroot Arkbuild/ bash -c "chown -R ark:ark /home/ark"
 

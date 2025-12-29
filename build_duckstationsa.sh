@@ -23,6 +23,7 @@ else
 fi
 sudo cp duckstation/scripts/standalone-duckstation Arkbuild/usr/local/bin/
 sudo cp duckstation/configs/settings.ini.${UNIT} Arkbuild/home/ark/.config/duckstation/settings.ini
+sudo cp duckstation/configs/gamecontrollerdb.txt Arkbuild/home/ark/.config/duckstation/database/gamecontrollerdb.txt
 call_chroot "chown -R ark:ark /opt/"
 call_chroot "chown -R ark:ark /home/ark/"
 sudo chmod 777 Arkbuild/opt/duckstation/duckstation-nogui
