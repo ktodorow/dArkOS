@@ -33,7 +33,7 @@ Now you should be able to just run make <device_name> to build for a supported d
  - To build without 32bit support, change the BUILD_ARMHF export in the Makefile to n or add BUILD_ARMHF=n as a variable to `make`.
 - For RK3566, you can add Kodi to your build.  Just change the BUILD_KODI export in the Makefile to y or add BUILD_KODI=y as a variavble to `make`.  Kodi is also available as a prepackaged build in the extra_packages/rk3566 subfolder.  Just copy it to your tools folder and launch from Options/Tools in the start menu.
  - Be aware that building Kodi will add a significant amount of time to your build.  Could be double or triple the build time.
-- Initial build time on an Intel I7-8700U unit with a 512GB NVME SSD and 32GB of DDR4 memory is a little over 19 hours.  Subsequent builds are about 3 hours thanks to ccache.
+- Initial build time on an Intel I7-8700 65w unit with a 512GB NVME SSD and 32GB of DDR4 memory is a little over 19 hours.  Subsequent builds are about 3 hours thanks to ccache.
 
 # Credits and Thanks
 [ChatGPT](https://chatgpt.com/) for guidance on how to build a Debian image \
