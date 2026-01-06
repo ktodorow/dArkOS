@@ -63,6 +63,7 @@ solarus
 snes
 snesmsu1
 themes
+ti99
 tools
 vircon32
 virtualboy
